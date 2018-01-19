@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="ComboTreeBox">
+    <Position X="3" Y="1" Width="2" />
+    <Members>
+      <Field Name="_dropDown" Hidden="true" />
+      <Field Name="_expandedImageIndex" Hidden="true" />
+      <Field Name="_expandedImageKey" Hidden="true" />
+      <Field Name="_imageIndex" Hidden="true" />
+      <Field Name="_imageKey" Hidden="true" />
+      <Field Name="_images" Hidden="true" />
+      <Field Name="_isUpdating" Hidden="true" />
+      <Field Name="_nodes" Hidden="true" />
+      <Field Name="_nullValue" Hidden="true" />
+      <Field Name="_pathSeparator" Hidden="true" />
+      <Field Name="_selectedNode" Hidden="true" />
+      <Field Name="_showPath" Hidden="true" />
+      <Field Name="_useNodeNamesForPath" Hidden="true" />
+      <Method Name="dropDown_Closed" Hidden="true" />
+      <Method Name="dropDown_Opened" Hidden="true" />
+      <Method Name="GetNextDisplayedNode" Hidden="true" />
+      <Method Name="GetNodesRecursive" Hidden="true" />
+      <Method Name="GetPrevDisplayedNode" Hidden="true" />
+      <Method Name="nodes_CollectionChanged" Hidden="true" />
+      <Method Name="OwnsNode" Hidden="true" />
+      <Method Name="SetSelectedNode" Hidden="true" />
+      <Field Name="TEXT_FORMAT_FLAGS" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>BAlyDBIEIDCCAQakSgF6QQABBEKAABJ1QgNAKUgSwAM=</HashCode>
+      <FileName>ComboTreeBox\ComboTreeBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ComboTreeDropDown">
+    <Position X="5.25" Y="1" Width="2.25" />
+    <Members>
+      <Field Name="_bitmaps" Hidden="true" />
+      <Field Name="_collapsed" Hidden="true" />
+      <Field Name="_dropDownHeight" Hidden="true" />
+      <Field Name="_expanded" Hidden="true" />
+      <Field Name="_highlightedItemIndex" Hidden="true" />
+      <Field Name="_interior" Hidden="true" />
+      <Field Name="_itemHeight" Hidden="true" />
+      <Field Name="_numItemsDisplayed" Hidden="true" />
+      <Field Name="_scrollBar" Hidden="true" />
+      <Field Name="_scrollBarVisible" Hidden="true" />
+      <Field Name="_scrollDragging" Hidden="true" />
+      <Field Name="_scrollOffset" Hidden="true" />
+      <Field Name="_scrollRepeater" Hidden="true" />
+      <Field Name="_sourceControl" Hidden="true" />
+      <Field Name="_visibleItems" Hidden="true" />
+      <Property Name="Collapsed" Hidden="true" />
+      <Property Name="Expanded" Hidden="true" />
+      <Method Name="GenerateBitmap" Hidden="true" />
+      <Method Name="GetButtonState" Hidden="true" />
+      <Method Name="GetCollectionContainingNode" Hidden="true" />
+      <Method Name="GetItemBitmap" Hidden="true" />
+      <Method Name="GetScrollBarState" Hidden="true" />
+      <Method Name="GetScrollBarStateDown" Hidden="true" />
+      <Method Name="GetScrollBarStateUp" Hidden="true" />
+      <Method Name="GetScrollBarThumbState" Hidden="true" />
+      <Field Name="GLYPH_SIZE" Hidden="true" />
+      <Field Name="INDENT_WIDTH" Hidden="true" />
+      <Field Name="MIN_ITEM_HEIGHT" Hidden="true" />
+      <Field Name="MIN_THUMB_HEIGHT" Hidden="true" />
+      <Field Name="SCROLLBAR_WIDTH" Hidden="true" />
+      <Field Name="SCROLLBUTTON_SIZE" Hidden="true" />
+      <Method Name="scrollRepeater_Tick" Hidden="true" />
+      <Method Name="ScrollToHighlighted" Hidden="true" />
+      <Field Name="TEXT_FORMAT_FLAGS" Hidden="true" />
+      <Method Name="UpdateScrolling" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="ComboTreeDropDown.NodeInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ComboTreeBox\ComboTreeDropDown.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ComboTreeDropDown.ScrollBarInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ComboTreeBox\ComboTreeDropDown.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Struct Name="ComboTreeDropDown.BitmapInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ComboTreeBox\ComboTreeDropDown.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QgKBkAYOEUAA4BCgAAFokAgFAF6EAEQwMiCACAACUQQ=</HashCode>
+      <FileName>ComboTreeBox\ComboTreeDropDown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ComboTreeNode">
+    <Position X="7.75" Y="1" Width="2.5" />
+    <Members>
+      <Field Name="_expanded" Hidden="true" />
+      <Field Name="_expandedImageIndex" Hidden="true" />
+      <Field Name="_expandedImageKey" Hidden="true" />
+      <Field Name="_fontStyle" Hidden="true" />
+      <Field Name="_imageIndex" Hidden="true" />
+      <Field Name="_imageKey" Hidden="true" />
+      <Field Name="_name" Hidden="true" />
+      <Field Name="_nodes" Hidden="true" />
+      <Field Name="_parent" Hidden="true" />
+      <Field Name="_tag" Hidden="true" />
+      <Field Name="_text" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAgIBBEAAAiAgSEAABAQAQYBAAUAEAsAAKACQAAQAA=</HashCode>
+      <FileName>ComboTreeBox\ComboTreeNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ComboTreeNodeCollection">
+    <Position X="10.5" Y="1" Width="2.25" />
+    <Members>
+      <Field Name="_innerList" Hidden="true" />
+      <Field Name="_node" Hidden="true" />
+      <Method Name="ICollection.CopyTo" Hidden="true" />
+      <Property Name="ICollection.IsSynchronized" Hidden="true" />
+      <Property Name="ICollection.SyncRoot" Hidden="true" />
+      <Property Name="ICollection&lt;ComboTreeNode&gt;.IsReadOnly" Hidden="true" />
+      <Method Name="IList.Add" Hidden="true" />
+      <Method Name="IList.Contains" Hidden="true" />
+      <Method Name="IList.IndexOf" Hidden="true" />
+      <Method Name="IList.Insert" Hidden="true" />
+      <Method Name="IList.Remove" Hidden="true" />
+      <Method Name="SortInternal" Hidden="true" />
+      <Method Name="System.Collections.IEnumerable.GetEnumerator" Hidden="true" />
+      <Property Name="System.Collections.IList.IsFixedSize" Hidden="true" />
+      <Property Name="System.Collections.IList.IsReadOnly" Hidden="true" />
+      <Property Name="System.Collections.IList.this" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AGIABFAACAAEABABCAAQjCQQAAVAAJAAKABAAgBUIIM=</HashCode>
+      <FileName>ComboTreeBox\ComboTreeNodeCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DropDownControlBase">
+    <Position X="0.5" Y="1" Width="2" />
+    <Members>
+      <Field Name="_bufferedPainter" Hidden="true" />
+      <Field Name="_drawWithVisualStyles" Hidden="true" />
+      <Field Name="_dropDownButtonBounds" Hidden="true" />
+      <Field Name="_droppedDown" Hidden="true" />
+      <Method Name="bufferedPainter_PaintVisualState" Hidden="true" />
+      <Field Name="CONTROL_HEIGHT" Hidden="true" />
+      <Field Name="DROPDOWNBUTTON_WIDTH" Hidden="true" />
+      <Method Name="GetComboBoxState" Hidden="true" />
+      <Method Name="GetPlainButtonState" Hidden="true" />
+      <Method Name="GetPushButtonState" Hidden="true" />
+      <Method Name="GetTextBoxBounds" Hidden="true" />
+      <Method Name="GetTextBoxState" Hidden="true" />
+      <Method Name="SetHeight" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>YwJAAAAoAAABAAhgKBBAACAKgFQCAAAQIkIAAAErAQA=</HashCode>
+      <FileName>DropDownControlBase\DropDownControlBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ComboTreeNodeEventArgs">
+    <Position X="7.75" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>ComboTreeBox\ComboTreeNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
