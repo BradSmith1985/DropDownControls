@@ -19,155 +19,106 @@ namespace DemoApp {
 		public DemoForm() {
 			InitializeComponent();
 
-			//rbPlain.CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
-			//rbVS.CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
+			rbPlain.CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
+			rbVS.CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
 
-			//dsbListItems.PerformSearch += dsbListItems_PerformSearch;
+			dsbListItems.PerformSearch += dsbListItems_PerformSearch;
 
-			//// define our collection of list items
-			//var groupedItems = new[] { 
-			//	new { Group = "Gases", Value = 1, Display = "Helium", ToolTip = "Lighter than air" }, 
-			//	new { Group = "Gases", Value = 2, Display = "Hydrogen", ToolTip = "Explosive" },
-			//	new { Group = "Gases", Value = 3, Display = "Oxygen", ToolTip = "Vital for animal life" },
-			//	new { Group = "Gases", Value = 4, Display = "Argon", ToolTip = "Inert" },
-			//	new { Group = "Metals", Value = 5, Display = "Iron", ToolTip = "Heavy and metallic" },
-			//	new { Group = "Metals", Value = 6, Display = "Lithium", ToolTip = "Explodes in water" },
-			//	new { Group = "Metals", Value = 7, Display = "Copper", ToolTip = "Good electrical conductor" },
-			//	new { Group = "Metals", Value = 8, Display = "Gold", ToolTip = "Precious metal" },
-			//	new { Group = "Metals", Value = 9, Display = "Silver", ToolTip = "Anti-bacterial" },
-			//	new { Group = "Radioactive", Value = 10, Display = "Uranium", ToolTip = "Used in fission" },
-			//	new { Group = "Radioactive", Value = 11, Display = "Plutonium", ToolTip = "Man-made" },
-			//	new { Group = "Radioactive", Value = 12, Display = "Americium", ToolTip = "Used in smoke detectors" },
-			//	new { Group = "Radioactive", Value = 13, Display = "Radon", ToolTip = "Radioactive gas" }
-			//};
+			// define our collection of list items
+			var groupedItems = new[] {
+				new { Group = "Gases", Value = 1, Display = "Helium", ToolTip = "Lighter than air" },
+				new { Group = "Gases", Value = 2, Display = "Hydrogen", ToolTip = "Explosive" },
+				new { Group = "Gases", Value = 3, Display = "Oxygen", ToolTip = "Vital for animal life" },
+				new { Group = "Gases", Value = 4, Display = "Argon", ToolTip = "Inert" },
+				new { Group = "Metals", Value = 5, Display = "Iron", ToolTip = "Heavy and metallic" },
+				new { Group = "Metals", Value = 6, Display = "Lithium", ToolTip = "Explodes in water" },
+				new { Group = "Metals", Value = 7, Display = "Copper", ToolTip = "Good electrical conductor" },
+				new { Group = "Metals", Value = 8, Display = "Gold", ToolTip = "Precious metal" },
+				new { Group = "Metals", Value = 9, Display = "Silver", ToolTip = "Anti-bacterial" },
+				new { Group = "Radioactive", Value = 10, Display = "Uranium", ToolTip = "Used in fission" },
+				new { Group = "Radioactive", Value = 11, Display = "Plutonium", ToolTip = "Man-made" },
+				new { Group = "Radioactive", Value = 12, Display = "Americium", ToolTip = "Used in smoke detectors" },
+				new { Group = "Radioactive", Value = 13, Display = "Radon", ToolTip = "Radioactive gas" }
+			};
 
-			//Action<ComboTreeNodeCollection> addNodesHelper = nodes => {
-			//	foreach (var grp in groupedItems.GroupBy(x => x.Group)) {
-			//		ComboTreeNode parent = nodes.Add(grp.Key);
-			//		foreach (var item in grp) {
-			//			ComboTreeNode child = parent.Nodes.Add(item.Display);
-			//			child.ToolTip = item.ToolTip;
-			//		}
-			//	}
-			//};
+			Action<ComboTreeNodeCollection> addNodesHelper = nodes => {
+				foreach (var grp in groupedItems.GroupBy(x => x.Group)) {
+					ComboTreeNode parent = nodes.Add(grp.Key);
+					foreach (var item in grp) {
+						ComboTreeNode child = parent.Nodes.Add(item.Display);
+						child.ToolTip = item.ToolTip;
+					}
+				}
+			};
 
-			//// anonymous method delegate for transforming the above into nodes
-			//Action<ComboTreeBox> addNodes = ctb => {
-			//	addNodesHelper(ctb.Nodes);
-			//	ctb.Sort();
-			//	ctb.SelectedNode = ctb.Nodes[0].Nodes[0];
-			//};
+			// anonymous method delegate for transforming the above into nodes
+			Action<ComboTreeBox> addNodes = ctb => {
+				addNodesHelper(ctb.Nodes);
+				ctb.Sort();
+				ctb.SelectedNode = ctb.Nodes[0].Nodes[0];
+			};
 
-			//// normal combobox
-			//cmbNormal.ValueMember = "Value";
-			//cmbNormal.DisplayMember = "Display";
-			//cmbNormal.DataSource = new BindingSource(groupedItems, String.Empty);
+			// normal combobox
+			cmbNormal.ValueMember = "Value";
+			cmbNormal.DisplayMember = "Display";
+			cmbNormal.DataSource = new BindingSource(groupedItems, String.Empty);
 
-			//// grouped comboboxes
-			//gcbList.ValueMember = "Value";
-			//gcbList.DisplayMember = "Display";
-			//gcbList.GroupMember = "Group";
-			//gcbList.DataSource = new BindingSource(groupedItems, String.Empty);
+			// grouped comboboxes
+			gcbList.ValueMember = "Value";
+			gcbList.DisplayMember = "Display";
+			gcbList.GroupMember = "Group";
+			gcbList.DataSource = new BindingSource(groupedItems, String.Empty);
 
-			//gcbEditable.ValueMember = "Value";
-			//gcbEditable.DisplayMember = "Display";
-			//gcbEditable.GroupMember = "Group";
-			//gcbEditable.SortComparer = new DemoComparer();
-			//gcbEditable.DataSource = new BindingSource(groupedItems, String.Empty);
+			gcbEditable.ValueMember = "Value";
+			gcbEditable.DisplayMember = "Display";
+			gcbEditable.GroupMember = "Group";
+			gcbEditable.SortComparer = new DemoComparer();
+			gcbEditable.DataSource = new BindingSource(groupedItems, String.Empty);
 
-			//// combotreeboxes
-			//addNodes(ctbNormal);			
-			//         addNodes(ctbImages);
+			// combotreeboxes
+			addNodes(ctbNormal);
+			addNodes(ctbImages);
 
-			//addNodes(ctbCheckboxes);
-			//ctbCheckboxes.Nodes[0].Nodes[1].Nodes.Add(new ComboTreeNode("Deuterium"));
-			//         ctbCheckboxes.Nodes[0].Nodes[1].Nodes.Add(new ComboTreeNode("Tritium"));
-			//         ctbCheckboxes.CheckedNodes = new ComboTreeNode[] { 
-			//             ctbCheckboxes.Nodes[1].Nodes[0], 
-			//             ctbCheckboxes.Nodes[1].Nodes[1] 
-			//         };
+			addNodes(ctbCheckboxes);
+			ctbCheckboxes.Nodes[0].Nodes[1].Nodes.Add(new ComboTreeNode("Deuterium"));
+			ctbCheckboxes.Nodes[0].Nodes[1].Nodes.Add(new ComboTreeNode("Tritium"));
+			ctbCheckboxes.CheckedNodes = new ComboTreeNode[] {
+						 ctbCheckboxes.Nodes[1].Nodes[0],
+						 ctbCheckboxes.Nodes[1].Nodes[1]
+					 };
 
-			//foreach (var item in groupedItems) {
-			//	ctbFlatChecks.Nodes.Add(item.Display);
-			//}
-
-			//ctbFlatChecks.CheckedNodes = new ComboTreeNode[] { 
-			//	ctbFlatChecks.Nodes[0], 
-			//	ctbFlatChecks.Nodes[1] 
-			//};
-
-			//// dropdownsearchboxes
-			//addNodes(dsbListItems);
-
-			//dsbExternal.BeginUpdate();
-			//dsbExternal.Nodes.Add("example");
-			//dsbExternal.Nodes.Add("nodes");
-			//dsbExternal.Nodes.Add("already");
-			//dsbExternal.Nodes.Add("in");
-			//dsbExternal.Nodes.Add("list");
-			//dsbExternal.EndUpdate();
-			//dsbExternal.PerformSearch += dsbExternal_PerformSearch;
-			//dsbExternal.SelectedNode = dsbExternal.Nodes[0];
-
-			//// datagridview columns
-			//Column1.ValueMember = "Value";
-			//Column1.DisplayMember = "Display";
-			//Column1.GroupMember = "Group";
-			//Column1.DataSource = new BindingSource(groupedItems, String.Empty);
-
-			//Column2.Images = imageList;
-			//Column2.ImageIndex = 0;
-			//Column2.ExpandedImageIndex = 1;
-			//addNodesHelper(Column2.Nodes);
-
-			ArrayList arr = new ArrayList();
-			Random rnd = new Random();
-			string[] groups = new string[] { null, "Cake", "Muffin", "Biscuit", "Cookie", "Pie" };
-			for (int i = 0; i < 10000; i++) {
-				arr.Add(new {
-					Value = i,
-					Display = String.Format("{0} Item Description Text {1}", (char)((int)'A' + rnd.Next(26)), rnd.Next(255)),
-					Group = groups[rnd.Next(groups.Length)]
-				});
+			foreach (var item in groupedItems) {
+				ctbFlatChecks.Nodes.Add(item.Display);
 			}
 
-			gcbList.BeginUpdate();
-			gcbList.DataSource = null;
-			gcbList.GroupMember = "Group";
-			gcbList.DisplayMember = "Display";
-			gcbList.ValueMember = "Value";
-			gcbList.CausesValidation = false;
-			gcbList.DataSource = arr;
-			gcbList.EndUpdate();
-			gcbList.SelectedIndex = -1;
-			gcbList.CausesValidation = true;
-			gcbList.SelectedIndex = 8;
+			ctbFlatChecks.CheckedNodes = new ComboTreeNode[] {
+				ctbFlatChecks.Nodes[0],
+				ctbFlatChecks.Nodes[1]
+			};
 
-			cmbNormal.BeginUpdate();
-			cmbNormal.DataSource = null;
-			cmbNormal.DisplayMember = "Display";
-			cmbNormal.ValueMember = "Value";
-			cmbNormal.CausesValidation = false;
-			cmbNormal.DataSource = arr;
-			cmbNormal.EndUpdate();
-			cmbNormal.SelectedIndex = -1;
-			cmbNormal.CausesValidation = true;
-			cmbNormal.SelectedIndex = 8;
+			// dropdownsearchboxes
+			addNodes(dsbListItems);
 
-			gcbEditable.BeginUpdate();
-			gcbEditable.DataSource = null;
-			gcbEditable.GroupMember = "Group";
-			gcbEditable.DisplayMember = "Display";
-			gcbEditable.ValueMember = "Value";
-			gcbEditable.CausesValidation = false;
-			gcbEditable.DataSource = arr;
-			gcbEditable.EndUpdate();
-			gcbEditable.SelectedIndex = -1;
-			gcbEditable.CausesValidation = true;
-			gcbEditable.SelectedIndex = 8;
+			dsbExternal.BeginUpdate();
+			dsbExternal.Nodes.Add("example");
+			dsbExternal.Nodes.Add("nodes");
+			dsbExternal.Nodes.Add("already");
+			dsbExternal.Nodes.Add("in");
+			dsbExternal.Nodes.Add("list");
+			dsbExternal.EndUpdate();
+			dsbExternal.PerformSearch += dsbExternal_PerformSearch;
+			dsbExternal.SelectedNode = dsbExternal.Nodes[0];
 
-			gcbEditable.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-			gcbEditable.AutoCompleteSource = AutoCompleteSource.ListItems;
+			// datagridview columns
+			Column1.ValueMember = "Value";
+			Column1.DisplayMember = "Display";
+			Column1.GroupMember = "Group";
+			Column1.DataSource = new BindingSource(groupedItems, String.Empty);
+
+			Column2.Images = imageList;
+			Column2.ImageIndex = 0;
+			Column2.ExpandedImageIndex = 1;
+			addNodesHelper(Column2.Nodes);			
 		}
 
 		void dsbListItems_PerformSearch(object sender, PerformSearchEventArgs e) {
@@ -204,20 +155,20 @@ namespace DemoApp {
 		protected override void OnShown(EventArgs e) {
 			base.OnShown(e);
 
-			//_table = new DataTable();
-			//_table.PrimaryKey = new DataColumn[] { _table.Columns.Add("Word") };
+			_table = new DataTable();
+			_table.PrimaryKey = new DataColumn[] { _table.Columns.Add("Word") };
 
-			//try {
-			//	using (StreamReader sr = new StreamReader(File.OpenRead("WordList.txt"))) {
-			//		string line;
-			//		while ((line = sr.ReadLine()) != null) {
-			//			_table.Rows.Add(line.Trim());
-			//		}
-			//	}
-			//}
-			//catch (Exception ex) {
-			//	MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//}
+			try {
+				using (StreamReader sr = new StreamReader(File.OpenRead("WordList.txt"))) {
+					string line;
+					while ((line = sr.ReadLine()) != null) {
+						_table.Rows.Add(line.Trim());
+					}
+				}
+			}
+			catch (Exception ex) {
+				MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		[DebuggerHidden]
