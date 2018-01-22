@@ -21,18 +21,26 @@ public class GroupedComboBox : ComboBox, IComparer {
 
 	private static class NativeMethods {
 
-		[DllImport("user32")]
-		public static extern int GetWindowRect(IntPtr hwnd, ref Rectangle lpRect);
-
-		[DllImport("user32")]
-		public static extern void SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int X, int Y, int cx, int cy, int wFlags);
-
 		public const int SWP_NOZORDER = 0x4;
 		public const int SWP_NOACTIVATE = 0x10;
 		public const int SWP_FRAMECHANGED = 0x20;
 		public const int SWP_NOOWNERZORDER = 0x200;
 
 		public const int WM_CTLCOLORLISTBOX = 0x134;
+
+		public const int LVM_FIRST = 0x1000;
+		public const int LVM_SCROLL = (LVM_FIRST + 20);
+
+		public const int LB_SETTOPINDEX = 0x0197;
+
+		[DllImport("user32")]
+		public static extern int GetWindowRect(IntPtr hwnd, ref Rectangle lpRect);
+
+		[DllImport("user32")]
+		public static extern void SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int X, int Y, int cx, int cy, int wFlags);
+
+		[DllImport("user32.dll")]
+		public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
 	}
 
 	#endregion
@@ -530,21 +538,29 @@ public class GroupedComboBox : ComboBox, IComparer {
 	/// <param name="m"></param>
 	protected override void WndProc(ref Message m) {
 		if (m.Msg == NativeMethods.WM_CTLCOLORLISTBOX) {
-			if (!_dropDownHeightSet && (_hwndDropDown == IntPtr.Zero)) {
-				try {
-					_hwndDropDown = m.LParam;
+			if (_hwndDropDown == IntPtr.Zero) {
+				// by resetting the handle when the drop-down closes, this will only execute once
+				_hwndDropDown = m.LParam;
 
+				try {
 					Rectangle cBounds = RectangleToScreen(ClientRectangle);
 
-					Rectangle r = default(Rectangle);
+					Rectangle r = new Rectangle();
 					NativeMethods.GetWindowRect(m.LParam, ref r);
 
 					// only adjust height when drop-down appears below the control (not "drop-up")
 					if (r.Top > cBounds.Top) {
-						// maximum dropdown height is the distance to the bottom of the working area of the screen (capped at MAX_DROPDOWNHEIGHT)
-						Screen s = Screen.FromControl(this) ?? Screen.PrimaryScreen;
-						int maxHeight = s.WorkingArea.Bottom - cBounds.Bottom;
-						if (maxHeight > MAX_DROPDOWNHEIGHT) maxHeight = MAX_DROPDOWNHEIGHT;
+						int maxHeight;
+						if (_dropDownHeightSet) {
+							// explicit height
+							maxHeight = DropDownHeight;
+						}
+						else {
+							// maximum dropdown height is the distance to the bottom of the working area of the screen (capped at MAX_DROPDOWNHEIGHT)
+							Screen s = Screen.FromControl(this) ?? Screen.PrimaryScreen;
+							maxHeight = s.WorkingArea.Bottom - cBounds.Bottom;
+							if (maxHeight > MAX_DROPDOWNHEIGHT) maxHeight = MAX_DROPDOWNHEIGHT;
+						}
 
 						// height of items plus 2 pixels for the border
 						int newHeight = 2;
@@ -554,15 +570,19 @@ public class GroupedComboBox : ComboBox, IComparer {
 							newHeight = proposedHeight;
 						}
 
+						// resize drop-down
 						NativeMethods.SetWindowPos(
-							m.LParam, 
-							0, 
-							r.Left, 
+							m.LParam,
+							0,
+							r.Left,
 							r.Top,
-							DropDownWidth, 
-							newHeight, 
+							DropDownWidth,
+							newHeight,
 							NativeMethods.SWP_FRAMECHANGED | NativeMethods.SWP_NOACTIVATE | NativeMethods.SWP_NOZORDER | NativeMethods.SWP_NOOWNERZORDER
 						);
+
+						// ensure selected item is visible
+						NativeMethods.SendMessage(m.LParam, NativeMethods.LB_SETTOPINDEX, (IntPtr)SelectedIndex, IntPtr.Zero);
 					}
 				}
 				catch { }

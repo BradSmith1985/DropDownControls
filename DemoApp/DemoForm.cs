@@ -118,7 +118,7 @@ namespace DemoApp {
 			Column2.Images = imageList;
 			Column2.ImageIndex = 0;
 			Column2.ExpandedImageIndex = 1;
-			addNodesHelper(Column2.Nodes);			
+			addNodesHelper(Column2.Nodes);
 		}
 
 		void dsbListItems_PerformSearch(object sender, PerformSearchEventArgs e) {

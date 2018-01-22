@@ -139,8 +139,10 @@
 			// 
 			// cmbNormal
 			// 
+			this.cmbNormal.DropDownHeight = 150;
 			this.cmbNormal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbNormal.FormattingEnabled = true;
+			this.cmbNormal.IntegralHeight = false;
 			this.cmbNormal.Location = new System.Drawing.Point(211, 12);
 			this.cmbNormal.Name = "cmbNormal";
 			this.cmbNormal.Size = new System.Drawing.Size(200, 21);
@@ -195,7 +197,6 @@
 			// 
 			// dsbExternal
 			// 
-			this.dsbExternal.DropDownHeight = 300;
 			this.dsbExternal.DroppedDown = false;
 			this.dsbExternal.Location = new System.Drawing.Point(211, 285);
 			this.dsbExternal.Name = "dsbExternal";
@@ -206,7 +207,6 @@
 			// 
 			// dsbListItems
 			// 
-			this.dsbListItems.DropDownHeight = 300;
 			this.dsbListItems.DroppedDown = false;
 			this.dsbListItems.Location = new System.Drawing.Point(211, 234);
 			this.dsbListItems.Name = "dsbListItems";
@@ -279,8 +279,10 @@
 			// gcbList
 			// 
 			this.gcbList.DataSource = null;
+			this.gcbList.DropDownHeight = 150;
 			this.gcbList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.gcbList.FormattingEnabled = true;
+			this.gcbList.IntegralHeight = false;
 			this.gcbList.Location = new System.Drawing.Point(211, 39);
 			this.gcbList.Name = "gcbList";
 			this.gcbList.Size = new System.Drawing.Size(200, 23);
@@ -289,7 +291,9 @@
 			// gcbEditable
 			// 
 			this.gcbEditable.DataSource = null;
+			this.gcbEditable.DropDownHeight = 150;
 			this.gcbEditable.FormattingEnabled = true;
+			this.gcbEditable.IntegralHeight = false;
 			this.gcbEditable.Location = new System.Drawing.Point(211, 66);
 			this.gcbEditable.Name = "gcbEditable";
 			this.gcbEditable.Size = new System.Drawing.Size(200, 23);
