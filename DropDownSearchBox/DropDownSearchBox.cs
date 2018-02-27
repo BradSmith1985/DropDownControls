@@ -467,7 +467,7 @@ public class DropDownSearchBox : ComboTreeBox {
 				_cts = new CancellationTokenSource();
 				ComboTreeNodeCollection results = new ComboTreeNodeCollection(null);
 
-				var task = Task.Run(() => OnPerformSearch(new PerformSearchEventArgs(_services.Text, _cts.Token, results)), _cts.Token);
+				var task = Task.Factory.StartNew(() => OnPerformSearch(new PerformSearchEventArgs(_services.Text, _cts.Token, results)), _cts.Token);
 
 				task.ContinueWith(t => {
 					if (t.IsFaulted) {

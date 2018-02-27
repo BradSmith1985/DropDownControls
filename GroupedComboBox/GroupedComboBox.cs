@@ -257,8 +257,8 @@ public class GroupedComboBox : ComboBox, IComparer {
 
 		// compare the group values - if equal, return the earlier comparison
 		int firstLevelSort = _sortComparer.Compare(
-			Convert.ToString(_groupProperty.GetValue(x)),
-			Convert.ToString(_groupProperty.GetValue(y))		
+			_groupProperty.GetValue(x),
+			_groupProperty.GetValue(y)		
 		);
 
 		if (firstLevelSort == 0)

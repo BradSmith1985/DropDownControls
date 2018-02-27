@@ -78,6 +78,7 @@
     <Compile Include="DropDownSearchBox\DropDownSearchBox.cs" />
     <Compile Include="DropDownSearchBox\TextServices.cs" />
     <Compile Include="GroupedComboBox\GroupedComboBox.cs" />
+    <Compile Include="GroupedComboBox\PriorityGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
