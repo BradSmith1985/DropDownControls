@@ -123,8 +123,8 @@ namespace DropDownControls {
 		/// <param name="fallback"></param>
 		/// <returns></returns>
 		internal static int Compare(object x, object y, IComparer fallback) {
-			string headingX = x as string;
-			string headingY = y as string;
+			object headingX = x;
+			object headingY = y;
 			int priorityX = 1;
 			int priorityY = 1;
 
