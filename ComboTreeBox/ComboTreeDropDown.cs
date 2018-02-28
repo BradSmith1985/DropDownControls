@@ -38,7 +38,6 @@ public class ComboTreeDropDown : ToolStripDropDown {
 	private int _itemHeight;
 	private int _numItemsDisplayed;
 	private bool _scrollBarVisible;
-	private bool _nodeLinesNeeded;
 	private ScrollBarInfo _scrollBar;
 	private bool _scrollDragging;
 	private int _scrollOffset;
@@ -191,11 +190,12 @@ public class ComboTreeDropDown : ToolStripDropDown {
 		int halfHeight = _itemHeight / 2;
 
 		int bmpWidth = indentation;
-		
-		if (_nodeLinesNeeded)
-			bmpWidth += INDENT_WIDTH;
-		else
-			bmpWidth += 1;
+		int connectorMargin = 1;
+
+		bool drawConnectors = _sourceControl.ConnectorsNeeded;
+		if (drawConnectors) connectorMargin = INDENT_WIDTH;
+
+		bmpWidth += connectorMargin;
 
 		if (_sourceControl.ShowCheckBoxes)
 			bmpWidth += 16;
@@ -207,7 +207,7 @@ public class ComboTreeDropDown : ToolStripDropDown {
 		// create a bitmap that will be composed of the node's image and the glyphs/lines/indentation
 		Bitmap composite = new Bitmap(bmpWidth, _itemHeight);
 		using (Graphics g = Graphics.FromImage(composite)) {
-			if (_nodeLinesNeeded) {
+			if (drawConnectors) {
 				using (Pen dotted = new Pen(Color.Gray)) {
 					dotted.DashStyle = DashStyle.Dot;
 
@@ -244,7 +244,7 @@ public class ComboTreeDropDown : ToolStripDropDown {
 			}
 
 			// render plus/minus glyphs
-			if (bitmapInfo.HasChildren) {
+			if (drawConnectors && bitmapInfo.HasChildren) {
 				Rectangle glyphBounds = new Rectangle(indentation, composite.Height / 2 - GLYPH_SIZE / 2, GLYPH_SIZE, GLYPH_SIZE);
 				VisualStyleElement elem = bitmapInfo.NodeExpanded ? VisualStyleElement.TreeView.Glyph.Opened : VisualStyleElement.TreeView.Glyph.Closed;
 
@@ -1093,8 +1093,6 @@ public class ComboTreeDropDown : ToolStripDropDown {
 		SuspendLayout();
 
 		ClearBitmapCache();
-
-		_nodeLinesNeeded = _sourceControl.NodeLinesNeeded;
 
 		// populate the collection with the displayable items only
 		_visibleItems.Clear();

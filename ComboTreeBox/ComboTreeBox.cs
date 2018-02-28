@@ -392,21 +392,6 @@ public class ComboTreeBox : DropDownControlBase {
 			return _dropDown.VisibleCount;
 		}
 	}
-	/// <summary>
-	/// Gets a value indicating whether glyph lines need to be drawn to the left of each node.
-	/// </summary>
-	internal bool NodeLinesNeeded {
-		get {
-			bool childrenFound = false;
-			foreach (ComboTreeNode node in Nodes) {
-				if (node.Nodes.Count > 0) {
-					childrenFound = true;
-					break;
-				}
-			}
-			return childrenFound;
-		}
-	}
 
 	/// <summary>
 	/// Fired when the value of the <see cref="SelectedNode"/> property changes.
