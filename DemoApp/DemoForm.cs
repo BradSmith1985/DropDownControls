@@ -99,6 +99,9 @@ namespace DemoApp {
 
 			// dropdownsearchboxes
 			addNodes(dsbListItems);
+			foreach (ComboTreeNode node in dsbListItems.Nodes) {
+				node.FontStyle = FontStyle.Bold;
+			}
 
 			dsbExternal.BeginUpdate();
 			dsbExternal.Nodes.Add("example");
