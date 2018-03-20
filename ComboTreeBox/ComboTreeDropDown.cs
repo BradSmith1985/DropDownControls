@@ -1103,7 +1103,7 @@ public class ComboTreeDropDown : ToolStripDropDown {
 		_highlightedItemIndex = Math.Max(0, Math.Min(_highlightedItemIndex, _visibleItems.Count - 1));
 
 		_numItemsDisplayed = Math.Min((_dropDownHeight / _itemHeight) + 1, _visibleItems.Count);
-		int maxHeight = ((((_dropDownHeight - 2) / _itemHeight) + 1) * _itemHeight) + 2;
+		int maxHeight = (((_dropDownHeight / _itemHeight) + 1) * _itemHeight) + 2;
 
         // dropdown will be at least the width of the source control and at most the assigned height
 		Size = new Size(

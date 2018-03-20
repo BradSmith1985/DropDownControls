@@ -84,9 +84,9 @@ namespace DemoApp {
 			ctbCheckboxes.Nodes[0].Nodes[1].Nodes.Add(new ComboTreeNode("Deuterium"));
 			ctbCheckboxes.Nodes[0].Nodes[1].Nodes.Add(new ComboTreeNode("Tritium"));
 			ctbCheckboxes.CheckedNodes = new ComboTreeNode[] {
-						 ctbCheckboxes.Nodes[1].Nodes[0],
-						 ctbCheckboxes.Nodes[1].Nodes[1]
-					 };
+				ctbCheckboxes.Nodes[1].Nodes[0],
+				ctbCheckboxes.Nodes[1].Nodes[1]
+			};
 
 			foreach (var item in groupedItems) {
 				ctbFlatChecks.Nodes.Add(item.Display);
