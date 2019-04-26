@@ -714,7 +714,7 @@ public class ComboTreeBox : DropDownControlBase {
 
         if (img != null) e.Graphics.DrawImage(img, imgBounds);
 
-        TextRenderer.DrawText(e.Graphics, text, Font, txtBounds, ForeColor, TEXT_FORMAT_FLAGS);
+        TextRenderer.DrawText(e.Graphics, text, Font, txtBounds, Enabled ? ForeColor : SystemColors.GrayText, TEXT_FORMAT_FLAGS);
 
 		// focus rectangle
 		if (Focused && ShowFocusCues && !DroppedDown) e.DrawFocusRectangle();

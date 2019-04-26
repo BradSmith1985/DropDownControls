@@ -413,10 +413,6 @@ public class GroupedComboBox : ComboBox, IComparer {
 				e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
 				e.Graphics.FillRectangle(new SolidBrush(BackColor), groupBounds);
 			}
-            else if (disabled) {
-                // disabled appearance
-                e.Graphics.FillRectangle(Brushes.WhiteSmoke, e.Bounds);
-            }
             else if (!comboBoxEdit) {
                 // use the default background-painting logic
                 e.DrawBackground();

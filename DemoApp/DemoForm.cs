@@ -20,8 +20,11 @@ namespace DemoApp {
 		public DemoForm() {
 			InitializeComponent();
 
-			rbPlain.CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
-			rbVS.CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
+			rbPlain.CheckedChanged += new EventHandler(VisualStyles_CheckedChanged);
+			rbVS.CheckedChanged += new EventHandler(VisualStyles_CheckedChanged);
+
+			rbEnabled.CheckedChanged += Enabled_CheckedChanged;
+			rbDisabled.CheckedChanged += Enabled_CheckedChanged;
 
 			dsbListItems.PerformSearch += dsbListItems_PerformSearch;
 
@@ -59,10 +62,15 @@ namespace DemoApp {
 				ctb.SelectedNode = ctb.Nodes[0].Nodes[0];
 			};
 
-			// normal combobox
-			cmbNormal.ValueMember = "Value";
-			cmbNormal.DisplayMember = "Display";
-			cmbNormal.DataSource = new BindingSource(groupedItems, String.Empty);
+			// normal combobox (list)
+			cmbList.ValueMember = "Value";
+			cmbList.DisplayMember = "Display";
+			cmbList.DataSource = new BindingSource(groupedItems, String.Empty);
+
+			// normal combobox (editable)
+			cmbEditable.ValueMember = "Value";
+			cmbEditable.DisplayMember = "Display";
+			cmbEditable.DataSource = new BindingSource(groupedItems, String.Empty);
 
 			// grouped comboboxes
 			gcbList.ValueMember = "Value";
@@ -123,7 +131,7 @@ namespace DemoApp {
 			Column2.ImageIndex = 0;
 			Column2.ExpandedImageIndex = 1;
 			addNodesHelper(Column2.Nodes);
-		}
+		}		
 
 		void dsbListItems_PerformSearch(object sender, PerformSearchEventArgs e) {
 			if (chkRetainGroups.Checked) {
@@ -184,13 +192,26 @@ namespace DemoApp {
 			}
 		}
 
-		void radioButtons_CheckedChanged(object sender, EventArgs e) {
+		void VisualStyles_CheckedChanged(object sender, EventArgs e) {
 			ctbNormal.DrawWithVisualStyles = rbVS.Checked;
 			ctbImages.DrawWithVisualStyles = rbVS.Checked;
 			ctbCheckboxes.DrawWithVisualStyles = rbVS.Checked;
 			ctbFlatChecks.DrawWithVisualStyles = rbVS.Checked;
 			dsbListItems.DrawWithVisualStyles = rbVS.Checked;
 			dsbExternal.DrawWithVisualStyles = rbVS.Checked;
+		}
+
+		void Enabled_CheckedChanged(object sender, EventArgs e) {
+			cmbList.Enabled = rbEnabled.Checked;
+			cmbEditable.Enabled = rbEnabled.Checked;
+			gcbList.Enabled = rbEnabled.Checked;
+			gcbEditable.Enabled = rbEnabled.Checked;
+			ctbNormal.Enabled = rbEnabled.Checked;
+			ctbImages.Enabled = rbEnabled.Checked;
+			ctbCheckboxes.Enabled = rbEnabled.Checked;
+			ctbFlatChecks.Enabled = rbEnabled.Checked;
+			dsbListItems.Enabled = rbEnabled.Checked;
+			dsbExternal.Enabled = rbEnabled.Checked;
 		}
 
 		/// <summary>
