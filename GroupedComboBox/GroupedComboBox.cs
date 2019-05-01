@@ -376,7 +376,7 @@ public class GroupedComboBox : ComboBox, IComparer {
 			// get noteworthy states
 			bool comboBoxEdit = (e.State & DrawItemState.ComboBoxEdit) == DrawItemState.ComboBoxEdit;
 			bool selected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
-			bool noAccelerator = (e.State & DrawItemState.NoAccelerator) == DrawItemState.NoAccelerator;
+			bool noFocusRect = (e.State & DrawItemState.NoFocusRect) == DrawItemState.NoFocusRect;
 			bool disabled = (e.State & DrawItemState.Disabled) == DrawItemState.Disabled;
 			bool focus = (e.State & DrawItemState.Focus) == DrawItemState.Focus;
 
@@ -439,14 +439,13 @@ public class GroupedComboBox : ComboBox, IComparer {
 			);
 
 			// paint the focus rectangle if required
-			if (focus && !noAccelerator) {
+			if (focus && !noFocusRect) {
 				if (isGroupStart && selected) {
-					// don't draw the focus rectangle around the group header
-					ControlPaint.DrawFocusRectangle(e.Graphics, Rectangle.FromLTRB(groupBounds.X, itemBounds.Y, itemBounds.Right, itemBounds.Bottom));
+					// don't draw the focus rectangle around the group header					
+					Interop.DrawFocusRect(e.Graphics, Rectangle.FromLTRB(groupBounds.X, itemBounds.Y, itemBounds.Right, itemBounds.Bottom));
 				}
 				else {
-					// use default focus rectangle painting logic
-					e.DrawFocusRectangle();
+					Interop.DrawFocusRect(e.Graphics, e.Bounds);
 				}
 			}
 		}

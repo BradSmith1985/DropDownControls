@@ -916,7 +916,9 @@ public class ComboTreeDropDown : ToolStripDropDown {
 			}
 
 			// focus rectangle
-			if (focusable && _sourceControl.Focused && _sourceControl.ShowsFocusCues) ControlPaint.DrawFocusRectangle(e.Graphics, item.DisplayRectangle);
+			if (focusable && _sourceControl.Focused && _sourceControl.ShowsFocusCues) {
+				Interop.DrawFocusRect(e.Graphics, item.DisplayRectangle);
+			}
 		}
 	}
 

@@ -56,4 +56,24 @@ internal static class Interop {
 		BPAS_CUBIC = 2,
 		BPAS_SINE = 3
 	}
+
+	const int MM_TEXT = 1;
+
+	[DllImport("Gdi32.dll")]
+	private static extern int SetMapMode(IntPtr hdc, int iMode);
+
+	[DllImport("User32.dll")]
+	private static extern bool DrawFocusRect(IntPtr hdc, Rectangle lprc);
+
+	public static void DrawFocusRect(Graphics graphics, Rectangle r) {
+		IntPtr hdc = graphics.GetHdc();
+		try {
+			int iMode = SetMapMode(hdc, MM_TEXT);
+			DrawFocusRect(hdc, new Rectangle(r.Left, r.Top, r.Right, r.Bottom));
+			if (iMode != MM_TEXT) SetMapMode(hdc, iMode);
+		}
+		finally {
+			graphics.ReleaseHdc(hdc);
+		}
+	}
 }

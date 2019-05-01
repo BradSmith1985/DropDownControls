@@ -631,7 +631,6 @@ public class DropDownPaintEventArgs : PaintEventArgs {
 	public void DrawFocusRectangle() {
 		Rectangle focus = Bounds;
 		focus.Inflate(-3, -3);
-		//focus.Width++;
-		ControlPaint.DrawFocusRectangle(Graphics, focus);
+		Interop.DrawFocusRect(Graphics, focus);
 	}
 }
