@@ -57,19 +57,30 @@ internal static class Interop {
 		BPAS_SINE = 3
 	}
 
+	[StructLayout(LayoutKind.Sequential)]
+	struct RECT {
+		public int left;
+		public int top;
+		public int right;
+		public int bottom;
+	}
+
 	const int MM_TEXT = 1;
 
-	[DllImport("Gdi32.dll")]
-	private static extern int SetMapMode(IntPtr hdc, int iMode);
+	[DllImport("gdi32")]
+	static extern int SetMapMode(IntPtr hdc, int fnMapMode);
 
-	[DllImport("User32.dll")]
-	private static extern bool DrawFocusRect(IntPtr hdc, Rectangle lprc);
+	[DllImport("user32", SetLastError = true, ExactSpelling = true, CharSet = CharSet.Auto)]
+	static extern bool DrawFocusRect(HandleRef hDc, ref RECT lpRect);
 
 	public static void DrawFocusRect(Graphics graphics, Rectangle r) {
+		if (r.IsEmpty) return;
+
 		IntPtr hdc = graphics.GetHdc();
 		try {
 			int iMode = SetMapMode(hdc, MM_TEXT);
-			DrawFocusRect(hdc, new Rectangle(r.Left, r.Top, r.Right, r.Bottom));
+			RECT rect = new RECT() { left = r.Left, top = r.Top, right = r.Right, bottom = r.Bottom };
+			DrawFocusRect(new HandleRef(graphics, hdc), ref rect);
 			if (iMode != MM_TEXT) SetMapMode(hdc, iMode);
 		}
 		finally {
