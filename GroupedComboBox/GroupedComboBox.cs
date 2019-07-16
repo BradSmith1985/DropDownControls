@@ -49,8 +49,9 @@ public class GroupedComboBox : ComboBox, IComparer {
 
 	private BindingSource _bindingSource;		                // used for change detection and grouping
 	private Font _groupFont;					                // for painting
-	private string _groupMember;				                // name of group-by property
-	private PropertyDescriptor _groupProperty;	                // used to get group-by values
+	private string _groupMember;                                // name of group-by property
+	private PropertyDescriptor _valueProperty;                  // used to get list item values
+	private PropertyDescriptor _groupProperty;                  // used to get group-by values
 	private ArrayList _internalItems;			                // internal sorted collection of items
     private BindingSource _internalSource;                      // binds sorted collection to the combobox
 	private TextFormatFlags _textFormatFlags;	                // used in measuring/painting
@@ -59,6 +60,7 @@ public class GroupedComboBox : ComboBox, IComparer {
 	private IComparer _sortComparer;
 	private IntPtr _hwndDropDown;
 	private bool _dropDownHeightSet;
+	private GroupItemSortModes _sortMode;
 
 	/// <summary>
 	/// Gets or sets the data source for this GroupedComboBox.
@@ -146,6 +148,21 @@ public class GroupedComboBox : ComboBox, IComparer {
 	public new bool Sorted {
 		get { return true; }
 	}
+	/// <summary>
+	/// Gets or sets a value indicating how the list items (within each group) 
+	/// are passed to the <see cref="IComparer"/> that sorts them.
+	/// </summary>
+	[DefaultValue(GroupItemSortModes.Display), Category("Behavior")]
+	[Description("Determines how the list items (within each group) are passed to the IComparer that sorts them.")]
+	public GroupItemSortModes SortMode {
+		get { return _sortMode; }
+		set {
+			if (_sortMode != value) {
+				_sortMode = value;
+				if (_bindingSource != null) SyncInternalItems();
+			}
+		}
+	}
 
 	/// <summary>
 	/// Initialises a new instance of the GroupedComboBox class.
@@ -153,6 +170,7 @@ public class GroupedComboBox : ComboBox, IComparer {
 	public GroupedComboBox() {
 		base.DrawMode = DrawMode.OwnerDrawVariable;
 		_groupMember = String.Empty;
+		_sortMode = GroupItemSortModes.Display;
 		_internalItems = new ArrayList();
 		_textFormatFlags = TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix | TextFormatFlags.SingleLine | TextFormatFlags.VerticalCenter;
 		_sortComparer = Comparer.Default;
@@ -252,7 +270,25 @@ public class GroupedComboBox : ComboBox, IComparer {
 	/// <returns></returns>
 	int IComparer.Compare(object x, object y) {
 		// compare the display values (and return the result if there is no grouping)
-		int secondLevelSort = _sortComparer.Compare(GetItemText(x), GetItemText(y));
+		object sortValueX, sortValueY;
+
+		switch (_sortMode) {
+			case GroupItemSortModes.Item:
+				sortValueX = x;
+				sortValueY = y;
+				break;
+			case GroupItemSortModes.Value:
+				sortValueX = (_valueProperty != null) ? _valueProperty.GetValue(x) : x;
+				sortValueY = (_valueProperty != null) ? _valueProperty.GetValue(y) : y;
+				break;
+			default:
+				sortValueX = GetItemText(x);
+				sortValueY = GetItemText(y);
+				break;
+		}
+
+		int secondLevelSort = _sortComparer.Compare(sortValueX, sortValueY);
+
 		if (_groupProperty == null) return secondLevelSort;
 
 		// compare the group values - if equal, return the earlier comparison
@@ -483,9 +519,20 @@ public class GroupedComboBox : ComboBox, IComparer {
 	/// Rebuilds the internal sorted collection.
 	/// </summary>
 	private void SyncInternalItems() {
+		PropertyDescriptorCollection props = _bindingSource.GetItemProperties(null);
+
+		// locate the property descriptor that corresponds to the value of ValueMember
+		_valueProperty = null;
+		foreach (PropertyDescriptor descriptor in props) {
+			if (descriptor.Name.Equals(ValueMember)) {
+				_valueProperty = descriptor;
+				break;
+			}
+		}
+
 		// locate the property descriptor that corresponds to the value of GroupMember
 		_groupProperty = null;
-		foreach (PropertyDescriptor descriptor in _bindingSource.GetItemProperties(null)) {
+		foreach (PropertyDescriptor descriptor in props) {
 			if (descriptor.Name.Equals(_groupMember)) {
 				_groupProperty = descriptor;
 				break;
@@ -636,4 +683,30 @@ public class GroupedComboBox : ComboBox, IComparer {
         if (!Enabled) state |= DrawItemState.Disabled;
         OnDrawItem(new DrawItemEventArgs(e.Graphics, Font, itemBounds, SelectedIndex, state));
     }
+}
+
+/// <summary>
+/// Describes the methods by which list items are sorted.
+/// </summary>
+public enum GroupItemSortModes {
+	/// <summary>
+	/// List items are sorted by the text obtained through the 
+	/// <see cref="ListControl.DisplayMember"/> property. 
+	/// This is the default behaviour.
+	/// </summary>
+	Display,
+	/// <summary>
+	/// List items are sorted by the value obtained through the 
+	/// <see cref="ListControl.ValueMember"/> property.
+	/// </summary>
+	Value,
+	/// <summary>
+	/// List items are passed directly to the <see cref="IComparer"/> 
+	/// implementation that is assigned to the 
+	/// <see cref="GroupedComboBox.SortComparer"/> property.
+	/// </summary>
+	/// <remarks>
+	/// Unless a custom comparer is used, the list items must implement <see cref="IComparable"/>.
+	/// </remarks>
+	Item
 }
