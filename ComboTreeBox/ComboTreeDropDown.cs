@@ -970,8 +970,23 @@ public class ComboTreeDropDown : ToolStripDropDown {
 
 		if (scrollToNode != null) ScrollTo(scrollToNode);
 
-		// show below the source control
-		Show(_sourceControl, new Point(0, _sourceControl.ClientRectangle.Height));
+		// show above/below the source control
+		Show(_sourceControl, CalcDropDownLocation());
+	}
+
+	/// <summary>
+	/// Calculates the location of the dropdown depending on whether it needs to appear above or below the source control.
+	/// </summary>
+	/// <returns></returns>
+	private Point CalcDropDownLocation() {
+		Point location = new Point(0, _sourceControl.ClientRectangle.Height);
+		Rectangle workingArea = Screen.FromControl(_sourceControl).WorkingArea;
+
+		if ((_sourceControl.PointToScreen(location).Y + Height) > workingArea.Bottom) {
+			return Point.Add(location, new Size(0, -(Height + _sourceControl.ClientRectangle.Height)));
+		}
+
+		return location;
 	}
 
 	/// <summary>
@@ -1130,6 +1145,11 @@ public class ComboTreeDropDown : ToolStripDropDown {
 
 		ResumeLayout();
 		Invalidate();
+
+		if (_sourceControl.DroppedDown) {
+			// update location in case we need to reposition dropdown above/below the control
+			Show(_sourceControl, CalcDropDownLocation());
+		}
 	}
 
 	/// <summary>
