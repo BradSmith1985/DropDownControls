@@ -441,6 +441,14 @@ public class ComboTreeBox : DropDownControlBase {
 		_isUpdating = true;
 	}
 
+	/// <summary>
+	/// Checks all nodes in the tree.
+	/// </summary>
+	public void CheckAll() {
+		if (!ShowCheckBoxes) return;
+		foreach (ComboTreeNode node in AllNodes) node.Checked = true;
+	}
+
     /// <summary>
     /// Collapses all nodes in the tree for when the dropdown portion of the control is reopened.
     /// </summary>
@@ -876,6 +884,13 @@ public class ComboTreeBox : DropDownControlBase {
 	internal void ResumeCheckEvents() {
 		_suspendCheckEvents--;
 		if (_suspendCheckEvents < 0) _suspendCheckEvents = 0;
+	}
+
+	/// <summary>
+	/// Un-checks all nodes in the tree.
+	/// </summary>
+	public void UncheckAll() {
+		foreach (ComboTreeNode node in AllNodes) node.Checked = false;
 	}
 
 	void dropDown_Closed(object sender, ToolStripDropDownClosedEventArgs e) {
