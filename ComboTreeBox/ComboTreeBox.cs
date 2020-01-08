@@ -570,7 +570,7 @@ public class ComboTreeBox : DropDownControlBase {
 	/// <returns></returns>
 	internal static Image GetNodeImage(ComboTreeNode node, ImageList images, int imageIndex, string imageKey, int expandedImageIndex, string expandedImageKey) {
 		if ((images != null) && (node != null)) {
-			if (node.Expanded) {
+			if (node.Expanded && (node.Nodes.Count > 0)) {
 				if (images.Images.ContainsKey(node.ExpandedImageKey))
 					return images.Images[node.ExpandedImageKey];		// node's key
 				else if (node.ExpandedImageIndex >= 0)
