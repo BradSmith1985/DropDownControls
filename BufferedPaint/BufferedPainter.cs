@@ -410,7 +410,7 @@ namespace BufferedPainting {
         /// </summary>
         public Rectangle Bounds { get; set; }
         /// <summary>
-        /// Gets or sets how the bounds are anchored to the edge of the control.
+        /// Gets or sets how the bounds are anchored to the edges of the control.
         /// </summary>
         public AnchorStyles Anchor { get; set; }
 
@@ -420,6 +420,7 @@ namespace BufferedPainting {
         /// <param name="type">Type of trigger.</param>
         /// <param name="state">Visual state applied when the trigger occurs.</param>
         /// <param name="bounds">Bounds within which the trigger applies.</param>
+        /// <param name="anchor">How the bounds are anchored to the edges of the control.</param>
         public VisualStateTrigger(VisualStateTriggerTypes type, TState state, Rectangle bounds = default(Rectangle), AnchorStyles anchor = AnchorStyles.Top | AnchorStyles.Left) {
             Type = type;
             State = state;

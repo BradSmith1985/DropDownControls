@@ -121,27 +121,47 @@ namespace DropDownControls {
 			}
 		}
 
+		/// <summary>
+		/// Called when the mouse pointer moves over a cell.
+		/// </summary>
+		/// <param name="rowIndex"></param>
 		protected override void OnMouseEnter(int rowIndex) {
 			base.OnMouseEnter(rowIndex);
 			DataGridView.InvalidateCell(OwningColumn.Index, rowIndex);
 		}
 
+		/// <summary>
+		/// Called when the mouse pointer leaves the cell.
+		/// </summary>
+		/// <param name="rowIndex"></param>
 		protected override void OnMouseLeave(int rowIndex) {
 			base.OnMouseLeave(rowIndex);
 			DataGridView.InvalidateCell(OwningColumn.Index, rowIndex);
 		}
 
+		/// <summary>
+		/// Called when the user holds down a mouse button while the pointer is on a cell.
+		/// </summary>
+		/// <param name="e"></param>
 		protected override void OnMouseDown(DataGridViewCellMouseEventArgs e) {
 			_wasCurrentCell = (DataGridView.CurrentCellAddress == new Point(e.ColumnIndex, e.RowIndex));
 			base.OnMouseDown(e);
 			DataGridView.InvalidateCell(e.ColumnIndex, e.RowIndex);
 		}
 
+		/// <summary>
+		/// Called when the user releases a mouse button while the pointer is on a cell.
+		/// </summary>
+		/// <param name="e"></param>
 		protected override void OnMouseUp(DataGridViewCellMouseEventArgs e) {
 			base.OnMouseUp(e);
 			DataGridView.InvalidateCell(e.ColumnIndex, e.RowIndex);
 		}
 
+		/// <summary>
+		/// Called when the user clicks a mouse button while the pointer is on a cell.
+		/// </summary>
+		/// <param name="e"></param>
 		protected override void OnMouseClick(DataGridViewCellMouseEventArgs e) {
 			if (!ReadOnly && _wasCurrentCell) DataGridView.BeginEdit(true);
 			base.OnMouseClick(e);

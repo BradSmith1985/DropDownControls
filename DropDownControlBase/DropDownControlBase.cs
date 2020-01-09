@@ -252,7 +252,7 @@ public abstract class DropDownControlBase : Control {
 	}
 
 	/// <summary>
-	/// Raises the <see cref="StyleChanged"/> event.
+	/// Raises the <see cref="DropDownStyleChanged"/> event.
 	/// </summary>
 	/// <param name="e"></param>
 	protected virtual void OnDropDownStyleChanged(EventArgs e) {
