@@ -131,7 +131,7 @@ namespace DemoApp {
 			Column2.ImageIndex = 0;
 			Column2.ExpandedImageIndex = 1;
 			addNodesHelper(Column2.Nodes);
-		}		
+		}
 
 		void dsbListItems_PerformSearch(object sender, PerformSearchEventArgs e) {
 			if (chkRetainGroups.Checked) {

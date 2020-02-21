@@ -240,10 +240,13 @@ public class DropDownSearchBox : ComboTreeBox {
 				if (OwnsNode(e.Result)) {
 					match = e.Result;
 				}
-				else if ((match = AllNormalNodes.FirstOrDefault(x => DefaultEquivalencePredicate(e.Result, x))) == null) {					
+				else if ((match = AllNormalNodes.FirstOrDefault(x => DefaultEquivalencePredicate(e.Result, x))) == null) {
 					// search result not in original collection; add
 					match = e.Result.Clone();
 					Nodes.Add(match);
+				}
+				else if (!match.Selectable) {
+					match = null;
 				}
 			}
 
