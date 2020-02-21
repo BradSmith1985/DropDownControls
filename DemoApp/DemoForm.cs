@@ -45,11 +45,12 @@ namespace DemoApp {
 				new { Group = "Radioactive", Value = 13, Display = "Radon", ToolTip = "Radioactive gas" }
 			};
 
+			int ndx = 0;
 			Action<ComboTreeNodeCollection> addNodesHelper = nodes => {
 				foreach (var grp in groupedItems.GroupBy(x => x.Group)) {
-					ComboTreeNode parent = nodes.Add(grp.Key);
+					ComboTreeNode parent = nodes.Add(String.Format("node{0}", ++ndx), grp.Key);
 					foreach (var item in grp) {
-						ComboTreeNode child = parent.Nodes.Add(item.Display);
+						ComboTreeNode child = parent.Nodes.Add(String.Format("node{0}", ++ndx), item.Display);
 						child.ToolTip = item.ToolTip;
 					}
 				}
@@ -130,6 +131,7 @@ namespace DemoApp {
 			Column2.Images = imageList;
 			Column2.ImageIndex = 0;
 			Column2.ExpandedImageIndex = 1;
+			Column2.UseNodeNamesForPath = true;
 			addNodesHelper(Column2.Nodes);
 		}
 

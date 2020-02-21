@@ -245,6 +245,7 @@ namespace DropDownControls {
 				control.ExpandedImageKey = column.ExpandedImageKey;
 				control.Images = column.Images;
 				control.Nodes.AddRange(Nodes);
+				control.UseNodeNamesForPath = column.UseNodeNamesForPath;
 				control.Path = Convert.ToString(initialFormattedValue);
 				control.EndUpdate();
 			}
