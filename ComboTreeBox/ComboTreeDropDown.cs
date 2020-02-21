@@ -1117,7 +1117,7 @@ public class ComboTreeDropDown : ToolStripDropDown {
 			if (_sourceControl.IsNodeVisible(node)) _visibleItems.Add(new NodeInfo(node));
 		}
 
-		_highlightedItemIndex = Math.Max(0, Math.Min(_highlightedItemIndex, _visibleItems.Count - 1));
+		_highlightedItemIndex = Math.Max(0, Math.Min(_visibleItems.FindIndex(f => f.Node.Selectable), _visibleItems.Count - 1));
 
 		_numItemsDisplayed = Math.Min((_dropDownHeight / _itemHeight) + 1, _visibleItems.Count);
 		int maxHeight = (((_dropDownHeight / _itemHeight) + 1) * _itemHeight) + 2;
