@@ -29,11 +29,11 @@ namespace DemoApp {
 		}
 
 		[DebuggerHidden]
-		protected override void PerformSearch(string searchTerm, CancellationToken token, ComboTreeNodeCollection results) {
-			string adoFilter = String.Format("Word LIKE '{0}%'", searchTerm.Replace("'", "''"));
+		protected override void OnPerformSearch(PerformSearchEventArgs e) {
+			string adoFilter = String.Format("Word LIKE '{0}%'", e.SearchTerm.Replace("'", "''"));
 			foreach (DataRow dr in _table.Select(adoFilter)) {
-				token.ThrowIfCancellationRequested();
-				results.Add(new ComboTreeNode(dr.Field<string>(0)));
+				e.CancellationToken.ThrowIfCancellationRequested();
+				e.Results.Add(new ComboTreeNode(dr.Field<string>(0)));
 			}
 		}
 	}

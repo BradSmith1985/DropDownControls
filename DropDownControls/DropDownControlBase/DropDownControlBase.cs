@@ -14,7 +14,11 @@ using BufferedPainting;
 /// Abstract base class for a control which behaves like a dropdown but does not contain 
 /// logic for displaying a popup window.
 /// </summary>
+#if NET6_0_OR_GREATER
+[Designer("System.Windows.Forms.Design.UpDownBaseDesigner, System.Design, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"), ToolboxItem(false), DesignerCategory("")]
+#else
 [Designer("System.Windows.Forms.Design.UpDownBaseDesigner, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"), ToolboxItem(false), DesignerCategory("")]
+#endif
 public abstract class DropDownControlBase : Control {
 
 	const int CONTROL_HEIGHT = 7;
@@ -160,7 +164,7 @@ public abstract class DropDownControlBase : Control {
 	/// Gets the bounds of the textbox portion of the control by subtracting the dropdown button bounds from the client rectangle.
 	/// </summary>
 	/// <returns></returns>
-	protected Rectangle GetTextBoxBounds() {
+	protected virtual Rectangle GetTextBoxBounds() {
 		return new Rectangle(0, 0, _dropDownButtonBounds.Left, ClientRectangle.Height);
 	}
 
