@@ -8,4 +8,4 @@ Includes:
  - **DropDownSearchBox** - A ComboBox with inline searching (search within the local list items or an external data source)
 
 Requirements:
- - .NET Framework 4.5+
+ - .NET Framework 4.8 or .NET 6.0
