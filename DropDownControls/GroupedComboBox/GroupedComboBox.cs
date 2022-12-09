@@ -127,10 +127,16 @@ public class GroupedComboBox : ComboBox, IComparer {
 			return (_bindingSource != null) ? _bindingSource.DataSource : null;
 		}
 		set {
+			// temporarily store the DisplayMember value as it is lost on _internalSource.Dispose()
+			string _displayMember = DisplayMember;
+
 			if (_internalSource != null) _internalSource.Dispose();
 			_internalSource = null;
 
-			if (value != null) {
+            // restore the lost DisplayMember value
+            DisplayMember = _displayMember;
+
+            if (value != null) {
 				// wrap the object in a binding source and listen for changes
                 _bindingSource = new BindingSource(value, String.Empty);
 				_bindingSource.ListChanged += new ListChangedEventHandler(mBindingSource_ListChanged);
